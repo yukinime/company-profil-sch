@@ -1,0 +1,56 @@
+{
+  "builds": [
+    {
+      "src": "index.php",
+      "use": "@vercel/php"
+    },
+    {
+      "src": "galery.php",
+      "use": "@vercel/php"
+    },
+    {
+      "src": "kegiatan.php",
+      "use": "@vercel/php"
+    },
+    {
+      "src": "kontak.php",
+      "use": "@vercel/php"
+    },
+    {
+      "src": "profil.php",
+      "use": "@vercel/php"
+    },
+    {
+      "src": "sd.php",
+      "use": "@vercel/php"
+    },
+    {
+      "src": "tk.php",
+      "use": "@vercel/php"
+    },
+    {
+      "src": "smp.php",
+      "use": "@vercel/php"
+    },
+    {
+      "src": "sma.php",
+      "use": "@vercel/php"
+    },
+    {
+      "src": "visi-misi.php",
+      "use": "@vercel/php"
+    },
+    {
+      "src": "./includes/footer.php",
+      "use": "@vercel/php"
+    },
+    {
+      "src": "./includes/header.php",
+      "use": "@vercel/php"
+    }
+    
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/index.php" }
+  ]
+}
