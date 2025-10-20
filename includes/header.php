@@ -23,6 +23,7 @@ $base_url = $protocol . '://' . $host . $project_folder;
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="<?php echo $base_url; ?>assets/css/style.css" />
   <style>
     body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial}
@@ -140,6 +141,10 @@ $base_url = $protocol . '://' . $host . $project_folder;
         <div class="hidden md:flex items-center gap-3">
           <a class="inline-flex items-center px-4 py-2 rounded-xl text-sm font-semibold border border-gray-300 hover:border-gray-900" href="<?php echo $base_url; ?>kontak.php">Kontak</a>
           <a class="inline-flex items-center px-4 py-2 rounded-xl text-sm font-semibold bg-yellow-500 text-black hover:opacity-90" href="<?php echo $base_url; ?>kontak.php#daftar">Daftar</a>
+          <!-- Tombol Login Admin -->
+          <a class="inline-flex items-center px-4 py-2 rounded-xl text-sm font-semibold bg-purple-600 text-white hover:bg-purple-700" href="<?php echo $base_url; ?>admin/login.php">
+            <i class="fas fa-lock mr-2"></i>Admin
+          </a>
         </div>
         <button class="md:hidden inline-flex items-center justify-center rounded-xl border border-gray-300 px-3 py-2" onclick="toggleMobileMenu()">
           <span class="sr-only">Menu</span>☰
@@ -217,6 +222,10 @@ $base_url = $protocol . '://' . $host . $project_folder;
         
         <a class="block py-2 text-center rounded-xl border border-gray-300 mt-4" href="<?php echo $base_url; ?>kontak.php">Kontak</a>
         <a class="block py-2 text-center rounded-xl bg-yellow-500 text-black font-semibold" href="<?php echo $base_url; ?>kontak.php#daftar">Daftar</a>
+        <!-- Tombol Login Admin Mobile -->
+        <a class="block py-2 text-center rounded-xl bg-purple-600 text-white font-semibold mt-2" href="<?php echo $base_url; ?>admin/login.php">
+          <i class="fas fa-lock mr-2"></i>Login Admin
+        </a>
       </div>
     </div>
   </nav>
