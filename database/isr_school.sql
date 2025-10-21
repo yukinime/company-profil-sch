@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 21, 2025 at 03:48 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Host: localhost:3306
+-- Generation Time: Oct 21, 2025 at 06:45 AM
+-- Server version: 8.0.30
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,14 +28,14 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admins` (
-  `id` int(11) NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `full_name` varchar(100) NOT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `role` enum('superadmin','admin','editor') DEFAULT 'admin',
+  `id` int NOT NULL,
+  `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `full_name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `role` enum('superadmin','admin','editor') COLLATE utf8mb4_general_ci DEFAULT 'admin',
   `last_login` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp()
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -43,7 +43,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `username`, `password`, `full_name`, `email`, `role`, `last_login`, `created_at`) VALUES
-(1, '4dm1n', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Administrator Utama', 'admin@isr.sch.id', 'superadmin', '2025-10-21 01:08:52', '2025-10-20 02:57:05');
+(1, '4dm1n', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Administrator Utama', 'admin@isr.sch.id', 'superadmin', '2025-10-21 05:17:35', '2025-10-20 02:57:05');
 
 -- --------------------------------------------------------
 
@@ -52,14 +52,14 @@ INSERT INTO `admins` (`id`, `username`, `password`, `full_name`, `email`, `role`
 --
 
 CREATE TABLE `gallery` (
-  `id` int(11) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
-  `image_path` varchar(500) NOT NULL,
-  `category` enum('tk','sd','smp','sma') NOT NULL,
-  `status` enum('active','inactive') DEFAULT 'active',
-  `created_by` int(11) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp()
+  `id` int NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text COLLATE utf8mb4_general_ci,
+  `image_path` varchar(500) COLLATE utf8mb4_general_ci NOT NULL,
+  `category` enum('tk','sd','smp','sma') COLLATE utf8mb4_general_ci NOT NULL,
+  `status` enum('active','inactive') COLLATE utf8mb4_general_ci DEFAULT 'active',
+  `created_by` int DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -78,17 +78,17 @@ INSERT INTO `gallery` (`id`, `title`, `description`, `image_path`, `category`, `
 --
 
 CREATE TABLE `kegiatan` (
-  `id` int(11) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `slug` varchar(255) NOT NULL,
-  `excerpt` text DEFAULT NULL,
-  `content` longtext DEFAULT NULL,
-  `image_path` varchar(255) DEFAULT NULL,
-  `category` varchar(50) NOT NULL DEFAULT 'umum',
-  `status` enum('active','inactive') NOT NULL DEFAULT 'active',
-  `author_id` int(11) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
+  `id` int NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `excerpt` text COLLATE utf8mb4_general_ci,
+  `content` longtext COLLATE utf8mb4_general_ci,
+  `image_path` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `category` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'umum',
+  `status` enum('active','inactive') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'active',
+  `author_id` int DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -106,10 +106,10 @@ INSERT INTO `kegiatan` (`id`, `title`, `slug`, `excerpt`, `content`, `image_path
 --
 
 CREATE TABLE `kegiatan_foto` (
-  `id` int(11) NOT NULL,
-  `kegiatan_id` int(11) NOT NULL,
-  `image_path` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `id` int NOT NULL,
+  `kegiatan_id` int NOT NULL,
+  `image_path` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -119,6 +119,31 @@ CREATE TABLE `kegiatan_foto` (
 INSERT INTO `kegiatan_foto` (`id`, `kegiatan_id`, `image_path`, `created_at`) VALUES
 (1, 2, 'uploads/kegiatan/pensi-68f6cd0f1accb.jpg', '2025-10-21 00:00:15'),
 (2, 3, 'uploads/kegiatan/guru4-68f6cd7164427.jpg', '2025-10-21 00:01:53');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `render_art`
+--
+
+CREATE TABLE `render_art` (
+  `id` int NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text COLLATE utf8mb4_general_ci,
+  `image_path` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `category` enum('eksterior','interior','3d_modeling') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'eksterior',
+  `status` enum('active','inactive') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'active',
+  `created_by` int DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `render_art`
+--
+
+INSERT INTO `render_art` (`id`, `title`, `description`, `image_path`, `category`, `status`, `created_by`, `created_at`, `updated_at`) VALUES
+(1, 'Patung Pahat', 'patung ini bisa di perjual belikan sekitar 50jt-100jt karena langka', 'uploads/render/screenshot-2025-09-25-052406-68f71bc5e5998.png', '3d_modeling', 'active', 1, '2025-10-21 05:36:05', NULL);
 
 --
 -- Indexes for dumped tables
@@ -153,6 +178,13 @@ ALTER TABLE `kegiatan_foto`
   ADD KEY `kegiatan_id` (`kegiatan_id`);
 
 --
+-- Indexes for table `render_art`
+--
+ALTER TABLE `render_art`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `created_by` (`created_by`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -160,25 +192,31 @@ ALTER TABLE `kegiatan_foto`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `gallery`
 --
 ALTER TABLE `gallery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `kegiatan`
 --
 ALTER TABLE `kegiatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `kegiatan_foto`
 --
 ALTER TABLE `kegiatan_foto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `render_art`
+--
+ALTER TABLE `render_art`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -195,6 +233,12 @@ ALTER TABLE `gallery`
 --
 ALTER TABLE `kegiatan_foto`
   ADD CONSTRAINT `fk_kegiatan_foto` FOREIGN KEY (`kegiatan_id`) REFERENCES `kegiatan` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `render_art`
+--
+ALTER TABLE `render_art`
+  ADD CONSTRAINT `render_art_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `admins` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

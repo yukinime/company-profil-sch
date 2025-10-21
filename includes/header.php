@@ -94,7 +94,6 @@ $base_url = $protocol . '://' . $host . $project_folder;
                 <div class="mega-menu-section">
                   <h3>KARYA & PORTFOLIO</h3>
                   <a href="<?php echo $base_url; ?>render-art.php" class="mega-menu-link">Render Art Commission</a>
-                  <a href="<?php echo $base_url; ?>architecture.php" class="mega-menu-link">Architecture Design</a>
                   <a href="<?php echo $base_url; ?>porto.php" class="mega-menu-link highlight">Semua Karya</a>
                   
                   <h3 class="mt-6">EKSTRAKURIKULER</h3>
@@ -175,7 +174,6 @@ $base_url = $protocol . '://' . $host . $project_folder;
             <div class="mb-3">
               <p class="text-xs font-bold text-yellow-600 uppercase tracking-wide mb-2">Karya & Portfolio</p>
               <a class="block py-1.5 text-sm" href="<?php echo $base_url; ?>render-art.php">Render Art Commission</a>
-              <a class="block py-1.5 text-sm" href="<?php echo $base_url; ?>architecture.php">Architecture Design</a>
               <a class="block py-1.5 text-sm text-yellow-600 font-medium" href="<?php echo $base_url; ?>porto.php">Semua Karya</a>
             </div>
             
