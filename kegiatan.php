@@ -230,125 +230,78 @@
       <h2 class="section-title">Dokumentasi Kegiatan Sekolah</h2>
       <div class="activity-cards">
 
-        <!-- Kegiatan 1: MPLS 2024-2025 -->
-        <div class="activity-card">
-          <img src="assets/img/mpls-2024.jpg" alt="MPLS 2024-2025" />
-          <div class="activity-content">
-            <h3>MPLS 2024 - 2025</h3>
-            <p>Masa Pengenalan Lingkungan Sekolah untuk siswa baru tahun ajaran 2024-2025.</p>
-            <span class="photo-count"><i class="fas fa-images"></i> 4 foto</span>
-          </div>
-        </div>
+        <!-- Konten Main -->
+<?php
+require_once __DIR__ . '/models/Kegiatan.php';
+require_once __DIR__ . '/config/database.php'; // untuk hitung foto (opsional)
 
-        <!-- Kegiatan 2: Karya Wisata Goes to Dufan -->
-        <div class="activity-card">
-          <img src="assets/img/karya-wisata-dufan.jpg" alt="Karya Wisata Dufan" />
-          <div class="activity-content">
-            <h3>KARYA WISATA GOES TO DUFAN</h3>
-            <p>Kegiatan karya wisata siswa ke Dufan untuk pembelajaran di luar kelas yang menyenangkan.</p>
-            <span class="photo-count"><i class="fas fa-images"></i> 3 foto</span>
-          </div>
-        </div>
+if (!function_exists('h')) {
+  function h($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
+}
 
-        <!-- Kegiatan 3: Halal Bihalal -->
-        <div class="activity-card">
-          <img src="assets/img/halal-bihalal.jpg" alt="Halal Bihalal" />
-          <div class="activity-content">
-            <h3>HALAL BIHALAL</h3>
-            <p>Acara halal bihalal untuk mempererat silaturahmi warga sekolah setelah Idul Fitri.</p>
-            <span class="photo-count"><i class="fas fa-images"></i> 4 foto</span>
-          </div>
-        </div>
+$kg = new Kegiatan();
 
-        <!-- Kegiatan 4: Paskah -->
-        <div class="activity-card">
-          <img src="assets/img/paskah.jpg" alt="Paskah" />
-          <div class="activity-content">
-            <h3>PASKAH</h3>
-            <p>Perayaan Paskah bersama siswa untuk menghormati keberagaman agama di sekolah.</p>
-            <span class="photo-count"><i class="fas fa-images"></i> 4 foto</span>
-          </div>
-        </div>
+// (opsional) filter kategori/pencarian dari query string
+$validCats = ['umum','berita','artikel','pengumuman'];
+$category = strtolower(trim($_GET['category'] ?? '')); if (!in_array($category,$validCats,true)) $category='';
+$q = trim($_GET['q'] ?? '');
 
-        <!-- Kegiatan 5: Prestasi Siswa -->
-        <div class="activity-card">
-          <img src="assets/img/prestasi-siswa.jpg" alt="Prestasi Siswa" />
-          <div class="activity-content">
-            <h3>PRESTASI SISWA</h3>
-            <p>Dokumentasi berbagai prestasi yang diraih oleh siswa-siswi berprestasi.</p>
-            <span class="photo-count"><i class="fas fa-images"></i> 1 foto</span>
-          </div>
-        </div>
+$posts = $kg->all([
+  'status'   => 'active',
+  'category' => $category ?: null,
+  'q'        => $q ?: null
+]);
 
-        <!-- Kegiatan 6: LDK OSIS -->
-        <div class="activity-card">
-          <img src="assets/img/ldk-osis.jpg" alt="LDK OSIS" />
-          <div class="activity-content">
-            <h3>LDK OSIS</h3>
-            <p>Latihan Dasar Kepemimpinan OSIS untuk melatih jiwa kepemimpinan siswa.</p>
-            <span class="photo-count"><i class="fas fa-images"></i> 4 foto</span>
-          </div>
-        </div>
+// --- Hitung jumlah foto per konten (opsional: jika ada tabel kegiatan_foto)
+$photoCount = [];
+try {
+  $ids = array_column($posts, 'id');
+  if ($ids) {
+    $db = (new Database())->getConnection();
+    $in = implode(',', array_fill(0, count($ids), '?'));
+    $stmt = $db->prepare("SELECT kegiatan_id, COUNT(*) AS c FROM kegiatan_foto WHERE kegiatan_id IN ($in) GROUP BY kegiatan_id");
+    $stmt->execute($ids);
+    foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $r) {
+      $photoCount[(int)$r['kegiatan_id']] = (int)$r['c'];
+    }
+  }
+} catch (Throwable $e) {
+  // diamkan saja; fallback di bawah
+}
 
-        <!-- Kegiatan 7: Perayaan Imlek -->
-        <div class="activity-card">
-          <img src="assets/img/perayaan-imlek.jpg" alt="Perayaan Imlek" />
-          <div class="activity-content">
-            <h3>PERAYAAN IMLEK</h3>
-            <p>Merayakan Tahun Baru Imlek sebagai bentuk toleransi dan keberagaman.</p>
-            <span class="photo-count"><i class="fas fa-images"></i> 3 foto</span>
-          </div>
-        </div>
-
-        <!-- Kegiatan 8: Pemilihan Ketua & Wakil Ketua OSIS -->
-        <div class="activity-card">
-          <img src="assets/img/pemilihan-ketua-osis.jpg" alt="Pemilihan Ketua OSIS" />
-          <div class="activity-content">
-            <h3>PEMILIHAN KETUA & WAKIL KETUA OSIS</h3>
-            <p>Kegiatan demokrasi sekolah untuk memilih pemimpin OSIS periode baru.</p>
-            <span class="photo-count"><i class="fas fa-images"></i> 4 foto</span>
-          </div>
-        </div>
-
-        <!-- Kegiatan 9: Debat OSIS -->
-        <div class="activity-card">
-          <img src="assets/img/debat-osis.jpg" alt="Debat OSIS" />
-          <div class="activity-content">
-            <h3>DEBAT OSIS</h3>
-            <p>Debat calon ketua OSIS untuk menyampaikan visi dan misi kepada seluruh siswa.</p>
-            <span class="photo-count"><i class="fas fa-images"></i> 4 foto</span>
-          </div>
-        </div>
-
-        <!-- Kegiatan 10: Open House -->
-        <div class="activity-card">
-          <img src="assets/img/open-house.jpg" alt="Open House" />
-          <div class="activity-content">
-            <h3>OPEN HOUSE</h3>
-            <p>Acara open house untuk menyambut calon siswa dan orang tua mengenal sekolah.</p>
-            <span class="photo-count"><i class="fas fa-images"></i> 2 foto</span>
-          </div>
-        </div>
-
-        <!-- Kegiatan 11: Perayaan P5, Visitasi & EDU Fair -->
-        <div class="activity-card">
-          <img src="assets/img/p5-visitasi-edufair.jpg" alt="P5 Visitasi EDU Fair" />
-          <div class="activity-content">
-            <h3>PERAYAAN P5, VISITASI & EDU FAIR</h3>
-            <p>Kegiatan Projek Penguatan Profil Pelajar Pancasila dan pameran pendidikan.</p>
-            <span class="photo-count"><i class="fas fa-images"></i> 1 foto</span>
-          </div>
-        </div>
-
-        <!-- Kegiatan 12: Visitasi ke Universitas Maranatha Bandung -->
-        <div class="activity-card">
-          <img src="assets/img/visitasi-maranatha.jpg" alt="Visitasi Universitas Maranatha" />
-          <div class="activity-content">
-            <h3>VISITASI KE UNIVERSITAS MARANATHA BANDUNG</h3>
-            <p>Kunjungan edukatif ke Universitas Maranatha untuk mengenalkan dunia kampus.</p>
-            <span class="photo-count"><i class="fas fa-images"></i> 2 foto</span>
-          </div>
-        </div>
+// --- Render kartu
+if (!empty($posts)):
+  foreach ($posts as $p):
+    if (!is_array($p)) continue;
+    $thumb = $p['image_path'] ?? '';
+    $title = $p['title'] ?? '';
+    $excerpt = $p['excerpt'] ?? '';
+    $slug = $p['slug'] ?? '';
+    $count = $photoCount[$p['id']] ?? ($thumb ? 1 : 0); // fallback kalau tak ada tabel kegiatan_foto
+?>
+  <div class="activity-card">
+    <a href="kegiatan-detail.php?slug=<?= h($slug) ?>">
+      <img src="<?= h($thumb ?: 'assets/img/placeholder.jpg') ?>" alt="<?= h($title) ?>" />
+    </a>
+    <div class="activity-content">
+      <h3>
+        <a href="kegiatan-detail.php?slug=<?= h($slug) ?>"><?= h($title) ?></a>
+      </h3>
+      <p><?= $excerpt !== '' ? h($excerpt) : h(mb_strimwidth(strip_tags($p['content'] ?? ''), 0, 120, '…')) ?></p>
+      <span class="photo-count"><i class="fas fa-images"></i> <?= (int)$count ?> foto</span>
+    </div>
+  </div>
+<?php
+  endforeach;
+else:
+?>
+  <div class="activity-card">
+    <div class="activity-content">
+      <p>Tidak ada kegiatan untuk saat ini.</p>
+    </div>
+  </div>
+<?php endif; ?>
+<!-- END -->
 
       </div>
     </div>

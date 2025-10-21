@@ -80,6 +80,15 @@
 
 /* 5) (Opsional) rapetin jarak ke footer */
 .footer-tight{ margin-top: 2.5rem !important; } /* ganti mt-16 → class ini */
+#heroCarousel { position: relative; }
+#heroCarousel .carousel-slide{
+  position: absolute; inset: 0;
+  opacity: 0; transition: opacity 1s ease-in-out;
+}
+#heroCarousel .carousel-slide.is-active{
+  opacity: 1;
+  z-index: 2; /* di atas slide lainnya */
+}
 </style>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
@@ -104,19 +113,19 @@ document.addEventListener("DOMContentLoaded", function(){
 <!-- Banner Index dengan Overlay Gelap (Tailwind v2 compatible) -->
 <section class="relative rounded-2xl overflow-hidden border border-gray-200">
   <!-- Carousel wrapper -->
-  <div class="relative w-full h-72 md:h-96 overflow-hidden" id="heroCarousel">
+  <div class="relative w-full h-72 md:h-96 overflow-hidden"  id="heroCarousel">
     <!-- Slide 1 -->
-    <div class="absolute inset-0 opacity-100 transition-opacity duration-1000 ease-in-out carousel-slide">
-      <img src="./assets/img/banner.jpg" alt="ISR Resinda" class="w-full h-full object-cover">
-      <!-- ❗️ v2: pakai bg-black + bg-opacity-60 -->
-      <div class="absolute inset-0 bg-black bg-opacity-60"></div>
-    </div>
+<div class="absolute inset-0 transition-opacity duration-1000 ease-in-out carousel-slide is-active">
+  <img src="./assets/img/banner.jpg" alt="ISR Resinda" class="w-full h-full object-cover">
+  <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+</div>
 
     <!-- Slide 2 -->
-    <div class="absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out carousel-slide">
-      <img src="./assets/img/banner2.jpg" alt="ISR Pengetahuan" class="w-full h-full object-cover">
-      <div class="absolute inset-0 bg-black bg-opacity-60"></div>
-    </div>
+<div class="absolute inset-0 transition-opacity duration-1000 ease-in-out carousel-slide">
+  <img src="./assets/img/banner2.jpg" alt="ISR Pengetahuan" class="w-full h-full object-cover">
+  <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+</div>
+
 
   </div>
 
@@ -147,44 +156,46 @@ document.addEventListener("DOMContentLoaded", function(){
   <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
     <button class="w-3 h-3 rounded-full bg-white opacity-70 hover:opacity-100 transition" data-slide="0"></button>
     <button class="w-3 h-3 rounded-full bg-white opacity-40 hover:opacity-100 transition" data-slide="1"></button>
-    <button class="w-3 h-3 rounded-full bg-white opacity-40 hover:opacity-100 transition" data-slide="2"></button>
+
   </div>
 </section>
 
 <!-- Script Carousel -->
 <script>
-  (function(){
-    var slides = document.querySelectorAll('#heroCarousel .carousel-slide');
-    var dots = document.querySelectorAll('[data-slide]');
-    var current = 0;
+(function(){
+  var slides = Array.from(document.querySelectorAll('#heroCarousel .carousel-slide'));
+  if (!slides.length) return;
 
-    function showSlide(index) {
-      slides.forEach(function(s, i){
-        s.style.opacity = (i === index) ? '1' : '0';
-      });
-      dots.forEach(function(d, i){
-        d.classList.toggle('opacity-70', i === index);
-        d.classList.toggle('opacity-40', i !== index);
-      });
-      current = index;
-    }
+  // Dots yang valid = sebanyak jumlah slide
+  var dots = Array.from(document.querySelectorAll('[data-slide]')).slice(0, slides.length);
+  var current = Math.max(0, slides.findIndex(s => s.classList.contains('is-active')));
+  if (current === -1) { current = 0; slides[0].classList.add('is-active'); }
 
-    function nextSlide() {
-      var next = (current + 1) % slides.length;
-      showSlide(next);
-    }
-
-    var interval = setInterval(nextSlide, 5000);
-
-    dots.forEach(function(dot, i){
-      dot.addEventListener('click', function(){
-        clearInterval(interval);
-        showSlide(i);
-        interval = setInterval(nextSlide, 5000);
-      });
+  function show(i){
+    i = (i % slides.length + slides.length) % slides.length;
+    if (i === current) return;
+    slides[current].classList.remove('is-active');
+    slides[i].classList.add('is-active');
+    dots.forEach((d, idx)=>{
+      d.classList.toggle('opacity-70', idx === i);
+      d.classList.toggle('opacity-40', idx !== i);
     });
-  })();
+    current = i;
+  }
+
+  function next(){ show(current + 1); }
+
+  var timer = setInterval(next, 5000);
+  dots.forEach((dot, i)=>{
+    dot.addEventListener('click', function(){
+      clearInterval(timer);
+      show(i);
+      timer = setInterval(next, 5000);
+    });
+  });
+})();
 </script>
+
 
 <!-- END -->
 
@@ -225,9 +236,23 @@ document.addEventListener("DOMContentLoaded", function(){
 </section>
 
 <section id="tentang" class="rounded-2xl border border-gray-200 bg-white p-6 md:p-10">
-  <h2 class="text-2xl md:text-3xl font-extrabold">Tentang Sekolah</h2>
-  <p class="mt-4 text-gray-700">Ignatius Slamet Riyadi didirikan pada tahun 2006, dan telah meluluskan 10 lulusan, banyak di antaranya adalah profesional di institusi terbaik di Indonesia. Sekolah kami menerapkan Kurikulum Merdeka serta Entrepreneurship, dengan sistem SKS, sebagai satu-satunya sekolah di Karawang yang menerapkan sistem ini.</p>
+  <h2 class="text-center text-2xl md:text-3xl font-extrabold">Tentang Sekolah</h2>
+  <p class="text-center mt-4 text-gray-700">Ignatius Slamet Riyadi didirikan pada tahun 2006, dan telah meluluskan 10 lulusan, banyak di antaranya adalah profesional di institusi terbaik di Indonesia. Sekolah kami menerapkan Kurikulum Merdeka serta Entrepreneurship, dengan sistem SKS, sebagai satu-satunya sekolah di Karawang yang menerapkan sistem ini.</p>
+  <div class="mt-6 md:mt-8">
+  <div class="relative rounded-xl overflow-hidden border border-gray-200 shadow-sm">
+    <p class="sr-only">Video Profil Sekolah</p>
+    <div class="relative w-full" style="padding-top:56.25%;">
+      <video class="absolute inset-0 w-full h-full"
+             controls preload="metadata" playsinline
+             poster="./assets/img/banner.jpg">
+        <source src="./assets/video/profil.mp4" type="video/mp4">
+        Browser Anda tidak mendukung pemutar video HTML5.
+      </video>
+    </div>
+  </div>
+</div>
 </section>
+
 <!-- Announcement ISR (responsive grid) -->
 <section id="announcement" class="wrapper bg-light py-10 isr-sec">
   <div class="isr-container">

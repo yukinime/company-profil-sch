@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Oct 20, 2025 at 10:47 AM
--- Server version: 8.0.30
--- PHP Version: 8.1.10
+-- Host: 127.0.0.1
+-- Generation Time: Oct 21, 2025 at 03:48 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,22 +28,22 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admins` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
   `full_name` varchar(100) NOT NULL,
   `email` varchar(100) DEFAULT NULL,
   `role` enum('superadmin','admin','editor') DEFAULT 'admin',
   `last_login` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `created_at` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `admins`
 --
 
 INSERT INTO `admins` (`id`, `username`, `password`, `full_name`, `email`, `role`, `last_login`, `created_at`) VALUES
-(1, '4dm1n', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Administrator Utama', 'admin@isr.sch.id', 'superadmin', '2025-10-20 03:07:00', '2025-10-20 02:57:05');
+(1, '4dm1n', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Administrator Utama', 'admin@isr.sch.id', 'superadmin', '2025-10-21 01:08:52', '2025-10-20 02:57:05');
 
 -- --------------------------------------------------------
 
@@ -52,33 +52,73 @@ INSERT INTO `admins` (`id`, `username`, `password`, `full_name`, `email`, `role`
 --
 
 CREATE TABLE `gallery` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
-  `description` text,
+  `description` text DEFAULT NULL,
   `image_path` varchar(500) NOT NULL,
-  `category` enum('school','events','activities','achievements') DEFAULT 'school',
+  `category` enum('tk','sd','smp','sma') NOT NULL,
   `status` enum('active','inactive') DEFAULT 'active',
-  `created_by` int DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `created_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `gallery`
+--
+
+INSERT INTO `gallery` (`id`, `title`, `description`, `image_path`, `category`, `status`, `created_by`, `created_at`) VALUES
+(2, 'Siluman Buaya .spd', 'Saintis', 'uploads/gallery/hacker-68f6805197f4f.png', 'smp', 'active', 1, '2025-10-20 18:32:49'),
+(3, 'Guru Backend Engineer', 'Programmer', 'uploads/gallery/guru4-68f68da09ea60.jpg', 'sma', 'active', 1, '2025-10-20 19:29:36'),
+(4, 'Frontend Engineer', 'Programmer', 'uploads/gallery/guru6-68f68ded9e5a3.jpg', 'smp', 'active', 1, '2025-10-20 19:30:53');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pages`
+-- Table structure for table `kegiatan`
 --
 
-CREATE TABLE `pages` (
-  `id` int NOT NULL,
+CREATE TABLE `kegiatan` (
+  `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
-  `content` longtext,
-  `meta_description` text,
-  `status` enum('published','draft') DEFAULT 'published',
-  `created_by` int DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `excerpt` text DEFAULT NULL,
+  `content` longtext DEFAULT NULL,
+  `image_path` varchar(255) DEFAULT NULL,
+  `category` varchar(50) NOT NULL DEFAULT 'umum',
+  `status` enum('active','inactive') NOT NULL DEFAULT 'active',
+  `author_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `kegiatan`
+--
+
+INSERT INTO `kegiatan` (`id`, `title`, `slug`, `excerpt`, `content`, `image_path`, `category`, `status`, `author_id`, `created_at`, `updated_at`) VALUES
+(2, 'Cara Menjadi Youtuber', 'bagaimana-cara-menjadi-youtuber', 'Youtuber adalah sesuatu yang harus dibanggakan jika anda pengangguran', 'Disini adalah konten mnejadi youtuber sehingga anda menjadi toyebisadoio sjadk sjhbas jkashd dkfjskdf as,djbaks\r\nasdjabskd js bkjs kajsdk aksjda asd asads gdfg dfg asd asd afd fs', 'uploads/kegiatan/announcementketakwaan-68f6cd0f16d94.jpg', 'umum', 'active', 1, '2025-10-21 00:00:15', NULL),
+(3, 'Cara Menjadi Dosen', 'bagaimana-cara-menjadi-dosem', 'Youtuber adalah sesuatu yang harus dibanggakan jika anda pengangguran', 'Wadas kampoengan', 'uploads/kegiatan/announcementpenguasaan-68f6cd715e019.png', 'berita', 'active', 1, '2025-10-21 00:01:53', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kegiatan_foto`
+--
+
+CREATE TABLE `kegiatan_foto` (
+  `id` int(11) NOT NULL,
+  `kegiatan_id` int(11) NOT NULL,
+  `image_path` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `kegiatan_foto`
+--
+
+INSERT INTO `kegiatan_foto` (`id`, `kegiatan_id`, `image_path`, `created_at`) VALUES
+(1, 2, 'uploads/kegiatan/pensi-68f6cd0f1accb.jpg', '2025-10-21 00:00:15'),
+(2, 3, 'uploads/kegiatan/guru4-68f6cd7164427.jpg', '2025-10-21 00:01:53');
 
 --
 -- Indexes for dumped tables
@@ -99,12 +139,18 @@ ALTER TABLE `gallery`
   ADD KEY `created_by` (`created_by`);
 
 --
--- Indexes for table `pages`
+-- Indexes for table `kegiatan`
 --
-ALTER TABLE `pages`
+ALTER TABLE `kegiatan`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `slug` (`slug`),
-  ADD KEY `created_by` (`created_by`);
+  ADD UNIQUE KEY `slug` (`slug`);
+
+--
+-- Indexes for table `kegiatan_foto`
+--
+ALTER TABLE `kegiatan_foto`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `kegiatan_id` (`kegiatan_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -114,19 +160,25 @@ ALTER TABLE `pages`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `gallery`
 --
 ALTER TABLE `gallery`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `pages`
+-- AUTO_INCREMENT for table `kegiatan`
 --
-ALTER TABLE `pages`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+ALTER TABLE `kegiatan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `kegiatan_foto`
+--
+ALTER TABLE `kegiatan_foto`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -139,10 +191,10 @@ ALTER TABLE `gallery`
   ADD CONSTRAINT `gallery_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `admins` (`id`);
 
 --
--- Constraints for table `pages`
+-- Constraints for table `kegiatan_foto`
 --
-ALTER TABLE `pages`
-  ADD CONSTRAINT `pages_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `admins` (`id`);
+ALTER TABLE `kegiatan_foto`
+  ADD CONSTRAINT `fk_kegiatan_foto` FOREIGN KEY (`kegiatan_id`) REFERENCES `kegiatan` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

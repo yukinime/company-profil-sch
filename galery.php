@@ -1,147 +1,100 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Galeri - SDN Kalisari III</title>
-  <link rel="stylesheet" href="assets/css/style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+<?php
+// ====== DATA ======
+require_once __DIR__ . '/models/Gallery.php';
+$gal = new Gallery();
 
-  <style>
-    .gallery-section {
-      padding: 40px 20px;
-      max-width: 1200px;
-      margin: auto;
-    }
+// Normalisasi kategori dari query (?category=...)
+$category = strtolower(trim($_GET['category'] ?? ''));
+$validCats = ['tk','sd','smp','sma'];
+if (!in_array($category, $validCats, true)) {
+  $category = '';
+}
 
-    .gallery-title {
-      text-align: center;
-      font-size: 2rem;
-      color: #2d6a4f;
-      margin-bottom: 40px;
-      font-weight: bold;
-    }
+// Ambil data guru (status active), filter kategori jika ada
+$items = $gal->all([
+  'status'   => 'active',
+  'category' => $category ?: null,
+]);
 
-    .gallery-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
+// Pastikan $items berupa array agar aman dipakai di foreach
+if (!is_array($items)) { $items = []; }
 
-    .gallery-card {
-      background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      overflow: hidden;
-      width: calc(33.333% - 20px);
-      min-width: 250px;
-      transition: transform 0.3s ease;
-    }
+$catLabels = [
+  'tk'  => 'Guru TK',
+  'sd'  => 'Guru SD',
+  'smp' => 'Guru SMP',
+  'sma' => 'Guru SMA',
+];
 
-    .gallery-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .gallery-card img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .gallery-info {
-      padding: 15px;
-      text-align: center;
-    }
-
-    .gallery-info h4 {
-      margin: 10px 0 5px;
-      font-size: 18px;
-      color: #2d6a4f;
-    }
-
-    .gallery-info p {
-      margin: 0;
-      color: #666;
-      font-size: 14px;
-    }
-
-    @media (max-width: 768px) {
-      .gallery-card {
-        width: calc(50% - 20px);
-      }
-    }
-
-    @media (max-width: 480px) {
-      .gallery-card {
-        width: 100%;
-      }
-
-      .gallery-title {
-        font-size: 1.5rem;
-      }
-    }
-  </style>
-</head>
-<body>
-
+function h($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
+?>
 <?php include 'includes/header.php'; ?>
 
-<section class="gallery-section">
-  <h2 class="gallery-title">Galeri Guru SDN Kalisari III</h2>
-
-  <div class="gallery-grid">
-    <div class="gallery-card">
-      <img src="assets/img/guru 1.jpg" alt="Guru 1">
-      <div class="gallery-info">
-        <h4>Deden, S.pd</h4>
-        <p>Guru Kelas 4</p>
-      </div>
-    </div>
-
-    <div class="gallery-card">
-      <img src="assets/img/guru2.jpg" alt="Guru 2">
-      <div class="gallery-info">
-        <h4>Siti Maryata, S.Pd</h4>
-        <p>Guru Kelas 5</p>
-      </div>
-    </div>
-
-    <div class="gallery-card">
-      <img src="assets/img/guru3.jpg" alt="Guru 3">
-      <div class="gallery-info">
-        <h4>Bayu Lajuradi, S.pd</h4>
-        <p>Guru Kelas 6</p>
-      </div>
-    </div>
-
-    <div class="gallery-card">
-      <img src="assets/img/guru4.jpg" alt="Guru 4">
-      <div class="gallery-info">
-        <h4>Siti Maesaroh</h4>
-        <p>Guru Kelas 3</p>
-      </div>
-    </div>
-
-    <div class="gallery-card">
-      <img src="assets/img/guru5.jpg" alt="Guru 5">
-      <div class="gallery-info">
-        <h4>Rina Marlina</h4>
-        <p>Guru Kelas 1</p>
-      </div>
-    </div>
-
-    <div class="gallery-card">
-      <img src="assets/img/guru6.jpg" alt="Guru 6">
-      <div class="gallery-info">
-        <h4>Siti Aisyah</h4>
-        <p>Guru Kelas 2</p>
-      </div>
-    </div>
+<!-- ====== KONTEN GALERI (tanpa <main>) ====== -->
+<div class="max-w-7xl mx-auto px-6 py-12">
+  <!-- Header rata tengah -->
+  <div class="text-center mb-10">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-2">
+      Galeri Tenaga Pendidik
+    </h1>
+    <p class="text-gray-600 max-w-2xl mx-auto">
+      Temukan profil guru berdasarkan jenjang. Gunakan tab kategori atau kolom pencarian untuk memfilter.
+    </p>
   </div>
-</section>
+
+  <!-- Tabs kategori (tetap di tengah) -->
+  <div class="flex flex-wrap justify-center gap-3 mb-10">
+    <!-- Tombol Semua -->
+    <a href="galery.php"
+       class="px-5 py-2 rounded-full border text-sm font-medium transition
+              <?= $category === '' ? 'bg-purple-600 border-purple-600 text-white shadow' : 'border-gray-300 text-gray-700 hover:bg-purple-50 hover:border-purple-400' ?>">
+      Semua
+    </a>
+    <?php foreach ($catLabels as $key => $label): ?>
+      <a href="?category=<?= h($key) ?>"
+         class="px-5 py-2 rounded-full border text-sm font-medium transition
+                <?= $category === $key
+                  ? 'bg-purple-600 border-purple-600 text-white shadow'
+                  : 'border-gray-300 text-gray-700 hover:bg-purple-50 hover:border-purple-400' ?>">
+        <?= h($label) ?>
+      </a>
+    <?php endforeach; ?>
+  </div>
+
+  <!-- Grid kartu guru -->
+  <?php if (!empty($items)): ?>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <?php foreach ($items as $it): if (!is_array($it)) continue; ?>
+        <div class="bg-white rounded-2xl shadow hover:shadow-lg transition overflow-hidden border border-gray-100">
+          <?php if (!empty($it['image_path'])): ?>
+            <img src="<?= h($it['image_path']) ?>"
+                 alt="<?= h($it['title'] ?? 'Guru') ?>"
+                 class="h-56 w-full object-cover">
+          <?php else: ?>
+            <div class="h-56 w-full bg-gray-100 flex items-center justify-center text-gray-400 text-sm">Tanpa Foto</div>
+          <?php endif; ?>
+
+          <div class="p-5 text-center">
+            <h3 class="text-lg font-semibold text-gray-900 mb-1"><?= h($it['title'] ?? 'Nama Guru') ?></h3>
+            <p class="text-sm text-gray-500 mb-3"><?= h($it['description'] ?? '-') ?></p>
+
+            <?php
+              $catKey = isset($it['category']) ? strtolower($it['category']) : '';
+              if (isset($catLabels[$catKey])):
+            ?>
+              <span class="inline-block text-xs font-medium px-3 py-1 rounded-full bg-purple-100 text-purple-700">
+                <?= h($catLabels[$catKey]) ?>
+              </span>
+            <?php endif; ?>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    </div>
+  <?php else: ?>
+    <div class="text-center py-16 bg-white rounded-2xl border border-gray-100">
+      <p class="text-gray-500">Belum ada data guru untuk kategori ini.</p>
+    </div>
+  <?php endif; ?>
+</div>
 
 <?php include 'includes/footer.php'; ?>
-
-</body>
-</html>
