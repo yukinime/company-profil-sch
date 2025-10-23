@@ -1,4 +1,5 @@
-<?php include 'includes/header.php'; ?>
+<?php
+require_once __DIR__ . '/includes/config.php'; include 'includes/header.php'; ?>
 
 <section class="py-16 bg-gradient-to-br from-gray-50 to-indigo-50">
   <div class="max-w-7xl mx-auto px-4">
@@ -244,8 +245,8 @@
       <h2 class="text-3xl md:text-4xl font-bold mb-4">Tertarik dengan Karya Kami?</h2>
       <p class="text-lg mb-8 opacity-90 max-w-2xl mx-auto">Hubungi kami untuk konsultasi gratis dan wujudkan proyek impian Anda bersama tim profesional kami</p>
       <div class="flex flex-wrap justify-center gap-4">
-        <a href="../kontak.php" class="inline-block px-8 py-3 bg-white text-purple-600 font-bold rounded-xl hover:bg-gray-100 transition">Hubungi Kami</a>
-        <a href="./render-art.php" class="inline-block px-8 py-3 bg-transparent border-2 border-white text-white font-bold rounded-xl hover:bg-white hover:text-purple-600 transition">Lihat Render Art</a>
+        <a href="<?= url('kontak.php') ?>" class="inline-block px-8 py-3 bg-white text-purple-600 font-bold rounded-xl hover:bg-gray-100 transition">Hubungi Kami</a>
+        <a href="<?= url('render-art.php') ?>" class="inline-block px-8 py-3 bg-transparent border-2 border-white text-white font-bold rounded-xl hover:bg-white hover:text-purple-600 transition">Lihat Render Art</a>
       </div>
     </div>
 

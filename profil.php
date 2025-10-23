@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/includes/config.php';
 // profil.php - Halaman Profil Sekolah ISR
 ?>
 <!DOCTYPE html>
@@ -11,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="<?= asset('assets/css/style.css') ?>" />
 
   <style>
     body {
@@ -92,7 +93,7 @@
       <!-- School Image Section -->
       <div class="mb-12">
         <div class="school-img-container card-hover">
-          <img src="assets/img/school.png" alt="Gedung Sekolah Ignatius Slamet Riyadi" class="w-full h-96 object-cover">
+          <img src="<?= asset('assets/img/school.png') ?>" alt="Gedung Sekolah Ignatius Slamet Riyadi" class="w-full h-96 object-cover">
           <div class="img-overlay"></div>
           <div class="img-content">
             <h3 class="text-3xl md:text-4xl font-bold mb-2">Ignatius Slamet Riyadi</h3>

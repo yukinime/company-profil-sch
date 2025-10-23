@@ -1,9 +1,10 @@
-<?php include("includes/header.php"); ?>
+<?php
+require_once __DIR__ . '/includes/config.php'; include("includes/header.php"); ?>
 
 <!-- Banner Visi Misi: full center overlay -->
 <section class="relative rounded-2xl overflow-hidden border border-gray-200 shadow-lg">
   <div class="h-64 md:h-80 relative">
-    <img src="./assets/img/banner.jpg" alt="Visi Misi SMA ISR" class="absolute inset-0 w-full h-full object-cover">
+    <img src="<?= asset('assets/img/banner.jpg') ?>" alt="Visi Misi SMA ISR" class="absolute inset-0 w-full h-full object-cover">
     <div class="absolute inset-0 bg-black opacity-60"></div>
 
     <div class="absolute inset-0 z-10 flex flex-col items-center justify-center text-center p-6 md:p-10 text-white">
@@ -169,7 +170,7 @@
       <p class="mt-4 text-gray-700 text-sm md:text-base leading-relaxed">
         Menciptakan lingkungan pendidikan yang mendukung pertumbuhan holistik siswa, mengintegrasikan nilai-nilai spiritual, akademik, dan entrepreneurial.
       </p>
-      <a href="./kontak.php#daftar" class="mt-4 inline-flex items-center px-5 py-3 rounded-xl text-sm font-semibold bg-yellow-400 text-black hover:opacity-90 transition">
+      <a href="<?= url('kontak.php#daftar') ?>" class="mt-4 inline-flex items-center px-5 py-3 rounded-xl text-sm font-semibold bg-yellow-400 text-black hover:opacity-90 transition">
         Hubungi Kami
       </a>
     </div>

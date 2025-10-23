@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/includes/config.php';
 // File: site/render-art.php
 include 'includes/header.php';
 require_once __DIR__ . '/config/database.php';
@@ -85,7 +86,7 @@ $colorMap = [
         ];
         foreach ($tabs as $t):
           $active = ($t['val'] === ($filter ?? ''));
-          $href = 'render-art.php' . ($t['val'] ? ('?cat='.$t['val']) : '');
+          $href = url('render-art.php') . ($t['val'] ? ('?cat=' . rawurlencode($t['val'])) : '');
       ?>
         <a href="<?= h($href) ?>"
            class="px-6 py-2 rounded-full border transition <?=
@@ -120,7 +121,7 @@ $colorMap = [
           ?>
 
           <!-- Satu Card, full-clickable -->
-          <a href="render-art-detail.php?id=<?= $id ?>" class="block group">
+          <a href="<?= url('render-art-detail.php?id=' . rawurlencode($id)) ?>" class="block group">
             <div class="bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-2xl">
 
               <!-- Gambar (rapi, tetap di dalam card) -->

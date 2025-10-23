@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/includes/config.php';
 require_once __DIR__ . '/config/database.php';
 function h($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
 
@@ -12,7 +13,7 @@ function getImageUrl($imagePath){
   if (!$imagePath) return '';
   if (preg_match('#^https?://#i', $imagePath)) return $imagePath;
   // Struktur kamu: /site/uploads/...
-  return '/site/' . ltrim($imagePath, '/');
+  return asset(ltrim($imagePath, '/'));
 }
 ?>
 <?php include 'includes/header.php'; ?>
@@ -24,7 +25,7 @@ function getImageUrl($imagePath){
     <?php else: 
       $img = getImageUrl($post['image_path'] ?? '');
     ?>
-      <a href="render-art.php" class="text-sm text-indigo-600 hover:underline">← Kembali</a>
+      <a href="<?= url('render-art.php') ?>" class="text-sm text-indigo-600 hover:underline">← Kembali</a>
       <h1 class="text-3xl font-bold mt-3 mb-4"><?= h($post['title'] ?? '') ?></h1>
       <?php if ($img): ?>
         <div class="w-full overflow-hidden rounded-xl bg-gray-100 mb-6" style="aspect-ratio:16/9">

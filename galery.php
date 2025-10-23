@@ -1,3 +1,4 @@
+<?php require_once __DIR__ . '/includes/config.php'; ?>
 <?php
 // ====== DATA ======
 require_once __DIR__ . '/models/Gallery.php';
@@ -51,7 +52,7 @@ function h($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
       Semua
     </a>
     <?php foreach ($catLabels as $key => $label): ?>
-      <a href="?category=<?= h($key) ?>"
+      <a href="<?= url('galery.php?category=' . rawurlencode($key)) ?>"
          class="px-5 py-2 rounded-full border text-sm font-medium transition
                 <?= $category === $key
                   ? 'bg-purple-600 border-purple-600 text-white shadow'
@@ -67,9 +68,9 @@ function h($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
       <?php foreach ($items as $it): if (!is_array($it)) continue; ?>
         <div class="bg-white rounded-2xl shadow hover:shadow-lg transition overflow-hidden border border-gray-100">
           <?php if (!empty($it['image_path'])): ?>
-            <img src="<?= h($it['image_path']) ?>"
-                 alt="<?= h($it['title'] ?? 'Guru') ?>"
-                 class="h-56 w-full object-cover">
+            <img src="<?= h(asset($it['image_path'])) ?>"
+                alt="<?= h($it['title'] ?? 'Guru') ?>"
+                  class="h-56 w-full object-cover">
           <?php else: ?>
             <div class="h-56 w-full bg-gray-100 flex items-center justify-center text-gray-400 text-sm">Tanpa Foto</div>
           <?php endif; ?>

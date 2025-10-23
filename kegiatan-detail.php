@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/includes/config.php';
 require_once __DIR__ . '/models/Kegiatan.php';
 require_once __DIR__ . '/config/database.php';
 
@@ -29,7 +30,7 @@ $catLabels = [
     <div class="text-center py-24">
       <h1 class="text-3xl font-bold text-gray-900 mb-2">Konten Tidak Ditemukan</h1>
       <p class="text-gray-600 mb-6">Halaman yang Anda cari mungkin telah dihapus atau dipindahkan.</p>
-      <a href="kegiatan.php" class="inline-flex items-center px-4 py-2 rounded-xl bg-purple-600 text-white hover:bg-purple-700">← Kembali ke Kegiatan</a>
+      <a href="<?= url('kegiatan.php') ?>" class="inline-flex items-center px-4 py-2 rounded-xl bg-purple-600 text-white hover:bg-purple-700">← Kembali ke Kegiatan</a>
     </div>
   <?php else: ?>
     <?php
@@ -46,7 +47,7 @@ $catLabels = [
     <article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10">
       <!-- Meta Info -->
       <div class="text-center mb-6">
-        <a href="kegiatan.php" class="text-sm text-purple-600 hover:text-purple-800 inline-flex items-center mb-3">← Kembali</a>
+        <a href="<?= url('kegiatan.php') ?>" class="text-sm text-purple-600 hover:text-purple-800 inline-flex items-center mb-3">← Kembali</a>
         <div class="flex justify-center gap-3 flex-wrap text-sm text-gray-500 mb-2">
           <span class="inline-block px-3 py-1 bg-purple-100 text-purple-700 rounded-full font-medium"><?= h($catName) ?></span>
           <?php if ($dateStr): ?><span><?= h($dateStr) ?></span><?php endif; ?>

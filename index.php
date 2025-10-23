@@ -1,4 +1,6 @@
-<?php include 'includes/header.php'; ?>
+<?php
+require_once __DIR__ . '/includes/config.php'; include 'includes/header.php'; ?>
+
 
   <style>
     /* Custom Animations */
@@ -332,12 +334,13 @@
       margin-bottom: 1rem;
       border: 1px solid rgba(255, 255, 255, 0.2);
     }
+    
   </style>
 
   <!-- Full Width Video Hero Section -->
   <section class="video-hero">
     <video autoplay muted loop playsinline>
-      <source src="./assets/video/profil.mp4" type="video/mp4">
+      <source src="<?= asset('assets/video/profil.mp4') ?>" type="video/mp4">
     </video>
     <div class="video-overlay"></div>
     <div class="video-content">
@@ -401,7 +404,7 @@
           <div class="flex flex-col md:flex-row items-center gap-12">
             <div class="md:w-1/3 text-center">
               <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-8 inline-block">
-                <img src="./assets/img/yayasan.png" alt="Logo Yayasan Salib Suci" class="w-56 h-56 mx-auto animate-float drop-shadow-2xl">
+                <img src="<?= asset('assets/img/yayasan.png') ?>" alt="Logo Yayasan Salib Suci" class="w-56 h-56 mx-auto animate-float drop-shadow-2xl">
               </div>
             </div>
             <div class="md:w-2/3">
@@ -480,7 +483,7 @@
 
           <div class="order-1 md:order-2">
             <div class="relative rounded-3xl overflow-hidden shadow-2xl">
-              <img src="./assets/img/sejarah.png" alt="Sejarah Yayasan Salib Suci" class="w-full h-auto">
+              <img src="<?= asset('assets/img/sejarah.png') ?>" alt="Sejarah Yayasan Salib Suci" class="w-full h-auto">
               <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
               <div class="absolute bottom-0 left-0 right-0 p-10 text-white">
                 <p class="text-3xl font-bold mb-2">Lebih dari 95 Tahun</p>
@@ -517,7 +520,7 @@
           <p class="text-gray-600 mb-8 text-center leading-relaxed">
             Humaniora School, Basic Life Skill, Full Day School, Environmental Learning Activity
           </p>
-          <a href="./tk.php" class="block w-full text-center px-6 py-4 rounded-full bg-gradient-to-r from-pink-400 to-pink-600 text-white font-bold hover:shadow-2xl transition-all transform hover:scale-105">
+          <a href=" <?=url('tk.php') ?>" class="block w-full text-center px-6 py-4 rounded-full bg-gradient-to-r from-pink-400 to-pink-600 text-white font-bold hover:shadow-2xl transition-all transform hover:scale-105">
             Pelajari Lebih Lanjut →
           </a>
         </div>
@@ -532,7 +535,7 @@
           <p class="text-gray-600 mb-8 text-center leading-relaxed">
             Green School Project, Healthy Lunch Program, Kompetisi Akademik & Non-Akademik, Digital Learning Corner
           </p>
-          <a href="./sd.php" class="block w-full text-center px-6 py-4 rounded-full bg-gradient-to-r from-green-400 to-green-600 text-white font-bold hover:shadow-2xl transition-all transform hover:scale-105">
+          <a href=" <?=url('sd.php') ?>" class="block w-full text-center px-6 py-4 rounded-full bg-gradient-to-r from-green-400 to-green-600 text-white font-bold hover:shadow-2xl transition-all transform hover:scale-105">
             Pelajari Lebih Lanjut →
           </a>
         </div>
@@ -547,7 +550,7 @@
           <p class="text-gray-600 mb-8 text-center leading-relaxed">
             Talent Development, English Program, Good Relationship, Character & Leadership Building
           </p>
-          <a href="./smp.php" class="block w-full text-center px-6 py-4 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 text-white font-bold hover:shadow-2xl transition-all transform hover:scale-105">
+          <a href=" <?=url('smp.php') ?>" class="block w-full text-center px-6 py-4 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 text-white font-bold hover:shadow-2xl transition-all transform hover:scale-105">
             Pelajari Lebih Lanjut →
           </a>
         </div>
@@ -562,7 +565,7 @@
           <p class="text-gray-600 mb-8 text-center leading-relaxed">
             School of Entrepreneurship, Project Based Learning, Moving Class, Pengembangan Minat & Bakat
           </p>
-          <a href="./sma.php" class="block w-full text-center px-6 py-4 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-white font-bold hover:shadow-2xl transition-all transform hover:scale-105">
+          <a href=" <?=url('sma.php') ?>" class="block w-full text-center px-6 py-4 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-white font-bold hover:shadow-2xl transition-all transform hover:scale-105">
             Pelajari Lebih Lanjut →
           </a>
         </div>
@@ -583,8 +586,8 @@
         </div>
         <div class="relative rounded-3xl overflow-hidden shadow-2xl video-wrapper">
           <div class="relative w-full" style="padding-top:56.25%;">
-            <video class="absolute inset-0 w-full h-full" controls preload="metadata" playsinline poster="./assets/img/banner.jpg">
-              <source src="./assets/video/profil.mp4" type="video/mp4">
+            <video class="absolute inset-0 w-full h-full" controls preload="metadata" playsinline poster="<?= asset('assets/img/banner.jpg') ?>">
+              <source src="<?= asset('assets/video/profil.mp4') ?>" type="video/mp4">
               Browser Anda tidak mendukung pemutar video HTML5.
             </video>
           </div>
@@ -609,7 +612,7 @@
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div class="announcement-card">
           <div class="announcement-icon">
-            <img src="./assets/img/AnnouncementSdSmpSma.png" alt="TK">
+            <img src="<?= asset('assets/img/AnnouncementSdSmpSma.png') ?>" alt="TK">
           </div>
           <div>
             <h5 class="text-xl font-bold mb-3 text-gray-900">TK</h5>
@@ -621,7 +624,7 @@
 
         <div class="announcement-card">
           <div class="announcement-icon">
-            <img src="./assets/img/AnnouncementSdSmpSma.png" alt="SD">
+            <img src="<?= asset('assets/img/AnnouncementSdSmpSma.png') ?>" alt="SD">
           </div>
           <div>
             <h5 class="text-xl font-bold mb-3 text-gray-900">SD</h5>
@@ -633,7 +636,7 @@
 
         <div class="announcement-card">
           <div class="announcement-icon">
-            <img src="./assets/img/AnnouncementSdSmpSma.png" alt="SMP">
+            <img src="<?= asset('assets/img/AnnouncementSdSmpSma.png') ?>" alt="SMP">
           </div>
           <div>
             <h5 class="text-xl font-bold mb-3 text-gray-900">SMP</h5>
@@ -645,7 +648,7 @@
 
         <div class="announcement-card">
           <div class="announcement-icon">
-            <img src="./assets/img/AnnouncementSdSmpSma.png" alt="SMA">
+            <img src="<?= asset('assets/img/AnnouncementSdSmpSma.png') ?>" alt="SMA">
           </div>
           <div>
             <h5 class="text-xl font-bold mb-3 text-gray-900">SMA</h5>
@@ -657,7 +660,7 @@
 
         <div class="announcement-card">
           <div class="announcement-icon">
-            <img src="./assets/img/Announcementketakwaan.jpg" alt="Ketaqwaan">
+            <img src="<?= asset('assets/img/Announcementketakwaan.jpg') ?>" alt="Ketaqwaan">
           </div>
           <div>
             <h5 class="text-xl font-bold mb-3 text-gray-900">Ketaqwaan kepada Tuhan YME</h5>
@@ -669,7 +672,7 @@
 
         <div class="announcement-card">
           <div class="announcement-icon">
-            <img src="./assets/img/AnnouncementPenguasaan.png" alt="IPTEK">
+            <img src="<?= asset('assets/img/AnnouncementPenguasaan.png') ?>" alt="IPTEK">
           </div>
           <div>
             <h5 class="text-xl font-bold mb-3 text-gray-900">Penguasaan IPTEK</h5>
@@ -754,16 +757,16 @@
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-12 items-center justify-items-center">
         <div class="flex justify-center">
-          <img src="./assets/img/Patnership1.png" alt="Partner 1" class="partner-logo w-40 md:w-52 h-auto">
+          <img src="<?= asset('assets/img/Patnership1.png') ?>" alt="Partner 1" class="partner-logo w-40 md:w-52 h-auto">
         </div>
         <div class="flex justify-center">
-          <img src="./assets/img/Patnership2.png" alt="Partner 2" class="partner-logo w-40 md:w-52 h-auto">
+          <img src="<?= asset('assets/img/Patnership2.png') ?>" alt="Partner 2" class="partner-logo w-40 md:w-52 h-auto">
         </div>
         <div class="flex justify-center">
-          <img src="./assets/img/Patnership3.png" alt="Partner 3" class="partner-logo w-40 md:w-52 h-auto">
+          <img src="<?= asset('assets/img/Patnership3.png') ?>" alt="Partner 3" class="partner-logo w-40 md:w-52 h-auto">
         </div>
         <div class="flex justify-center">
-          <img src="./assets/img/Patnership4.png" alt="Partner 4" class="partner-logo w-40 md:w-52 h-auto">
+          <img src="<?= asset('assets/img/Patnership4.png') ?>" alt="Partner 4" class="partner-logo w-40 md:w-52 h-auto">
         </div>
       </div>
     </section>
@@ -789,13 +792,13 @@
             Daftarkan putra-putri Anda sekarang dan jadilah bagian dari keluarga besar ISR Resinda
           </p>
           <div class="flex flex-wrap gap-5 justify-center">
-            <a href="./kontak.php#daftar" class="cta-btn inline-flex items-center px-12 py-5 rounded-full text-lg font-bold bg-white text-green-600 hover:bg-gray-100 transition-all transform hover:scale-105 shadow-2xl">
+            <a href="<?= url('kontak.php#daftar') ?>" class="cta-btn inline-flex items-center px-12 py-5 rounded-full text-lg font-bold bg-white text-green-600 hover:bg-gray-100 transition-all transform hover:scale-105 shadow-2xl">
               <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
               </svg>
               Daftar Sekarang
             </a>
-            <a href="./profil.php" class="cta-btn inline-flex items-center px-12 py-5 rounded-full text-lg font-bold border-2 border-white hover:bg-white hover:text-green-600 transition-all backdrop-blur-sm bg-white/10">
+            <a href=" <?=url('profil.php') ?>" class="cta-btn inline-flex items-center px-12 py-5 rounded-full text-lg font-bold border-2 border-white hover:bg-white hover:text-green-600 transition-all backdrop-blur-sm bg-white/10">
               <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>

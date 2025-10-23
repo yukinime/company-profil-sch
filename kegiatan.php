@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/includes/config.php';
 // kegiatan.php
 ?>
 <!DOCTYPE html>
@@ -7,7 +8,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dokumentasi Kegiatan - Ignatius Slamet Riyadi</title>
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="<?= asset('assets/css/style.css') ?>" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <style>
     /* Hero Section */
@@ -280,12 +281,12 @@ if (!empty($posts)):
     $count = $photoCount[$p['id']] ?? ($thumb ? 1 : 0); // fallback kalau tak ada tabel kegiatan_foto
 ?>
   <div class="activity-card">
-    <a href="kegiatan-detail.php?slug=<?= h($slug) ?>">
+    <a href="<?= url('kegiatan-detail.php?slug=' . rawurlencode($slug)) ?>">
       <img src="<?= h($thumb ?: 'assets/img/placeholder.jpg') ?>" alt="<?= h($title) ?>" />
     </a>
     <div class="activity-content">
       <h3>
-        <a href="kegiatan-detail.php?slug=<?= h($slug) ?>"><?= h($title) ?></a>
+        <a href="<?= url('kegiatan-detail.php?slug=' . rawurlencode($slug)) ?>"><?= h($title) ?></a>
       </h3>
       <p><?= $excerpt !== '' ? h($excerpt) : h(mb_strimwidth(strip_tags($p['content'] ?? ''), 0, 120, '…')) ?></p>
       <span class="photo-count"><i class="fas fa-images"></i> <?= (int)$count ?> foto</span>

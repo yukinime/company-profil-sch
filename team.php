@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/includes/config.php';
 // team.php - Halaman Tim & Pengajar Sekolah ISR
 ?>
 <!DOCTYPE html>
@@ -11,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="<?= asset('assets/css/style.css') ?>" />
 
   <style>
     body {
@@ -303,7 +304,7 @@
           <div class="grid md:grid-cols-5 gap-0">
             <div class="md:col-span-2">
               <div class="team-img-wrapper h-full">
-                <img src="assets/img/kepsek.png" alt="Ignasia Hastari K, S.Psi" class="team-img">
+                <img src="<?= asset('assets/img/kepsek.png') ?>" alt="Ignasia Hastari K, S.Psi" class="team-img">
                 <div class="team-overlay"></div>
                 <div class="team-info">
                   <div class="badge badge-primary mb-3">KEPALA SEKOLAH</div>
@@ -387,7 +388,7 @@
           <!-- Wawan Purwana -->
           <div class="team-card animate-fade-in">
             <div class="team-img-wrapper">
-              <img src="assets/img/wk.png" alt="Wawan Purwana, S.Kom., M.Kom" class="team-img">
+              <img src="<?= asset('assets/img/wk.png') ?>" alt="Wawan Purwana, S.Kom., M.Kom" class="team-img">
               <div class="team-overlay"></div>
               <div class="team-info">
                 <div class="badge badge-primary mb-3">WAKIL KEPALA SEKOLAH</div>
@@ -427,7 +428,7 @@
           <!-- Yulia Titik Widayati -->
           <div class="team-card animate-fade-in">
             <div class="team-img-wrapper">
-              <img src="assets/img/sejarah.png" alt="Yulia Titik Widayati S.S" class="team-img">
+              <img src="<?= asset('assets/img/sejarah.png') ?>" alt="Yulia Titik Widayati S.S" class="team-img">
               <div class="team-overlay"></div>
               <div class="team-info">
                 <div class="badge badge-primary mb-3">GURU SENIOR</div>

@@ -1,9 +1,10 @@
-<?php include("includes/header.php"); ?>
+<?php
+require_once __DIR__ . '/includes/config.php'; include("includes/header.php"); ?>
 
 <!-- Banner TK: full center overlay (Tailwind v2) -->
 <section class="relative rounded-2xl overflow-hidden border border-gray-200 shadow-lg">
   <div class="h-64 md:h-80 relative">
-    <img src="./assets/img/banner.jpg" alt="TK ISR Resinda" class="absolute inset-0 w-full h-full object-cover">
+    <img src="<?= asset('assets/img/banner.jpg') ?>" alt="TK ISR Resinda" class="absolute inset-0 w-full h-full object-cover">
     <div class="absolute inset-0 bg-black opacity-60"></div>
 
     <div class="absolute inset-0 z-10 flex flex-col items-center justify-center text-center p-6 md:p-10 text-white">
@@ -92,7 +93,7 @@ style="background-color:#25D366">
   <div class="rounded-2xl border border-gray-200 bg-white p-6">
     <h3 class="font-bold text-lg">Pendaftaran</h3>
     <p class="mt-2 text-gray-700">Klik tombol di bawah untuk melakukan pendaftaran TK.</p>
-    <a href="./kontak.php#daftar" class="mt-4 inline-flex items-center px-5 py-3 rounded-xl text-sm font-semibold bg-yellow-500 text-black hover:opacity-90">Daftar TK Sekarang</a>
+    <a href="<?= url('kontak.php#daftar') ?>" class="mt-4 inline-flex items-center px-5 py-3 rounded-xl text-sm font-semibold bg-yellow-500 text-black hover:opacity-90">Daftar TK Sekarang</a>
   </div>
 </section>
 </div>
