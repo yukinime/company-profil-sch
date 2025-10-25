@@ -12,6 +12,18 @@ $project_folder = '/' . explode('/', trim($script_name, '/'))[0] . '/';
 // Base URL lengkap
 $base_url = $protocol . '://' . $host . $project_folder;
 ?>
+<?php
+// SAFE BOOTSTRAP: define BASE_URL only (no HTML changed)
+if (!defined('BASE_URL')) {
+  $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+  $host   = $_SERVER['HTTP_HOST'] ?? 'localhost';
+  $script = $_SERVER['SCRIPT_NAME'] ?? '/';
+  $dir    = rtrim(str_replace('\\','/', dirname($script)), '/');
+  $sub    = ($dir === '' || $dir === '.') ? '/' : $dir . '/';
+  define('BASE_URL', rtrim("$scheme://$host$sub", '/') . '/');
+}
+?>
+
   </main>
   
   <footer class="footer-tight bg-blue-50 border-t border-blue-100">

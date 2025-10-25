@@ -13,9 +13,22 @@ $project_folder = '/' . explode('/', trim($script_name, '/'))[0] . '/';
 // Base URL lengkap
 $base_url = $protocol . '://' . $host . $project_folder;
 ?>
+<?php
+// SAFE BOOTSTRAP: define BASE_URL only (no HTML changed)
+if (!defined('BASE_URL')) {
+  $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+  $host   = $_SERVER['HTTP_HOST'] ?? 'localhost';
+  $script = $_SERVER['SCRIPT_NAME'] ?? '/';
+  $dir    = rtrim(str_replace('\\','/', dirname($script)), '/');
+  $sub    = ($dir === '' || $dir === '.') ? '/' : $dir . '/';
+  define('BASE_URL', rtrim("$scheme://$host$sub", '/') . '/');
+}
+?>
+
 <!doctype html>
 <html lang="id">
 <head>
+  <base href="<?= htmlspecialchars(BASE_URL, ENT_QUOTES, 'UTF-8') ?>">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ignatius Slamet Riyadi (ISR Resinda)</title>
