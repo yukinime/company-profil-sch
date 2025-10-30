@@ -1,5 +1,6 @@
 <?php
 // ====== AUTH & DEPENDENCIES ======
+// Untuk Memunculkan GAMBAR DI Localhost KITA Harus setup dulu pathnya CONTOH <img src="/<?= h($it['image_path']) isi ('/') dengan nama folder project rootnya
 require_once __DIR__ . '/_auth.php';
 require_once __DIR__ . '/_csrf.php';
 require_once __DIR__ . '/../models/Gallery.php';
@@ -450,12 +451,13 @@ $rCatLabels = ['eksterior'=>'Eksterior','interior'=>'Interior','3d_modeling'=>'3
           <i class="fas fa-newspaper mr-3"></i> Kelola Kegiatan
         </a>
         <a href="#" id="link-render" class="flex items-center px-6 py-3 hover:bg-purple-700 hover:text-white <?= $tab==='render'?'bg-purple-700 text-white':'' ?>">
-          <i class="fas fa-cube mr-3"></i> Render Art
-        </a>
-        <a href="logout.php" class="flex items-center px-6 py-3 hover:bg-purple-700 hover:text-white">
+          <i class="fas fa-cube mr-3"></i> Event Sekolah
+        </a>      
+      <a href="dashboard_berita.php?tab=berita" class="flex items-center px-6 py-3 hover:bg-purple-700 hover:text-white"><i class="fas fa-rss mr-3"></i> Kelola Berita</a>
+                <a href="logout.php" class="flex items-center px-6 py-3 hover:bg-purple-700 hover:text-white">
           <i class="fas fa-right-from-bracket mr-3"></i> Logout
         </a>
-      </nav>
+    </nav>
     </aside>
 
     <!-- ===== CONTENT ===== -->
@@ -544,7 +546,7 @@ $rCatLabels = ['eksterior'=>'Eksterior','interior'=>'Interior','3d_modeling'=>'3
                     <tr class="hover:bg-gray-50">
                       <td class="px-6 py-3">
                         <?php if (!empty($it['image_path'])): ?>
-                          <img src="/site/<?= h($it['image_path']) ?>" class="h-12 w-12 object-cover rounded-lg border border-gray-200" alt="">
+                          <img src="/<?= h($it['image_path']) ?>" class="h-12 w-12 object-cover rounded-lg border border-gray-200" alt="">
                         <?php else: ?>
                           <div class="h-12 w-12 rounded-lg bg-gray-100 border border-gray-200"></div>
                         <?php endif; ?>
@@ -636,7 +638,7 @@ $rCatLabels = ['eksterior'=>'Eksterior','interior'=>'Interior','3d_modeling'=>'3
                     <label class="block text-sm font-medium text-gray-700">Foto (opsional)</label>
                     <?php if ($mode==='edit' && !empty($editingItem['image_path'])): ?>
                       <div class="flex items-center gap-3 mt-1">
-                        <img src="/site/<?= h($editingItem['image_path']) ?>" class="h-12 w-12 object-cover rounded-lg border border-gray-200" alt="">
+                        <img src="/<?= h($editingItem['image_path']) ?>" class="h-12 w-12 object-cover rounded-lg border border-gray-200" alt="">
                         <span class="text-xs text-gray-500">Biarkan kosong jika tidak ingin mengganti</span>
                       </div>
                     <?php endif; ?>
@@ -706,7 +708,7 @@ $rCatLabels = ['eksterior'=>'Eksterior','interior'=>'Interior','3d_modeling'=>'3
                     <tr class="hover:bg-gray-50">
                       <td class="px-6 py-3">
                         <?php if (!empty($p['image_path'])): ?>
-                          <img src="/site/<?= h($p['image_path']) ?>" class="h-12 w-12 object-cover rounded-lg border border-gray-200" alt="">
+                          <img src="/<?= h($p['image_path']) ?>" class="h-12 w-12 object-cover rounded-lg border border-gray-200" alt="">
                         <?php else: ?>
                           <div class="h-12 w-12 rounded-lg bg-gray-100 border border-gray-200"></div>
                         <?php endif; ?>
@@ -805,7 +807,7 @@ $rCatLabels = ['eksterior'=>'Eksterior','interior'=>'Interior','3d_modeling'=>'3
                     </label>
                     <?php if ($kmode==='edit' && !empty($kEditing['image_path'])): ?>
                       <div class="flex items-center gap-3 mt-1">
-                        <img src="/site/<?= h($kEditing['image_path']) ?>" class="h-16 w-16 object-cover rounded-lg border border-gray-200" alt="">
+                        <img src="/<?= h($kEditing['image_path']) ?>" class="h-16 w-16 object-cover rounded-lg border border-gray-200" alt="">
                         <span class="text-xs text-gray-500">Biarkan kosong jika tidak ingin mengganti</span>
                       </div>
                     <?php endif; ?>
@@ -822,7 +824,7 @@ $rCatLabels = ['eksterior'=>'Eksterior','interior'=>'Interior','3d_modeling'=>'3
                         <div class="mt-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
                           <?php foreach ($existing as $ph): ?>
                             <div class="group relative border rounded-lg overflow-hidden">
-                              <img src="/site/<?= h($ph['image_path']) ?>" class="h-24 w-full object-cover" alt="">
+                              <img src="/<?= h($ph['image_path']) ?>" class="h-24 w-full object-cover" alt="">
                               <form action="?tab=kegiatan&kmode=delphoto" method="post"
                                     class="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition"
                                     onsubmit="return confirm('Hapus foto ini?')">
@@ -903,7 +905,7 @@ $rCatLabels = ['eksterior'=>'Eksterior','interior'=>'Interior','3d_modeling'=>'3
                     <tr class="hover:bg-gray-50">
                       <td class="px-6 py-3">
                         <?php if (!empty($r['image_path'])): ?>
-                          <img src="/site/<?= h($r['image_path']) ?>" class="h-16 w-24 object-cover rounded-lg border border-gray-200" alt="">
+                          <img src="/<?= h($r['image_path']) ?>" class="h-16 w-24 object-cover rounded-lg border border-gray-200" alt="">
                         <?php else: ?>
                           <div class="h-16 w-24 rounded-lg bg-gray-100 border border-gray-200"></div>
                         <?php endif; ?>
@@ -995,7 +997,7 @@ $rCatLabels = ['eksterior'=>'Eksterior','interior'=>'Interior','3d_modeling'=>'3
                     <label class="block text-sm font-medium text-gray-700">Gambar Render</label>
                     <?php if ($mode==='edit' && !empty($rEditing['image_path'])): ?>
                       <div class="flex items-center gap-3 mt-1">
-                        <img src="/site/<?= h($rEditing['image_path']) ?>" class="h-20 w-32 object-cover rounded-lg border border-gray-200" alt="">
+                        <img src="/<?= h($rEditing['image_path']) ?>" class="h-20 w-32 object-cover rounded-lg border border-gray-200" alt="">
                         <span class="text-xs text-gray-500">Biarkan kosong jika tidak ingin mengganti</span>
                       </div>
                     <?php endif; ?>

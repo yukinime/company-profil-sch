@@ -1,19 +1,7 @@
 <?php 
 /* Modern footer ISR - Fixed with Absolute Paths */
 
-// Deteksi base URL project secara otomatis (sama seperti header)
-$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
-$host = $_SERVER['HTTP_HOST'];
-$script_name = $_SERVER['SCRIPT_NAME'];
-
-// Ambil folder project dari script name
-$project_folder = '/' . explode('/', trim($script_name, '/'))[0] . '/';
-
-// Base URL lengkap
-$base_url = $protocol . '://' . $host . $project_folder;
-?>
-<?php
-// SAFE BOOTSTRAP: define BASE_URL only (no HTML changed)
+/* SAFE BOOTSTRAP: define BASE_URL only (no HTML changed) */
 if (!defined('BASE_URL')) {
   $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
   $host   = $_SERVER['HTTP_HOST'] ?? 'localhost';
@@ -22,6 +10,8 @@ if (!defined('BASE_URL')) {
   $sub    = ($dir === '' || $dir === '.') ? '/' : $dir . '/';
   define('BASE_URL', rtrim("$scheme://$host$sub", '/') . '/');
 }
+/* PENTING: satukan sumber URL untuk semua link */
+$base_url = BASE_URL;
 ?>
 
   </main>
@@ -43,7 +33,7 @@ if (!defined('BASE_URL')) {
           <div class="mt-4 flex items-center gap-4 text-blue-500">
             <a href="https://twitter.com" target="_blank" rel="noopener" class="hover:text-blue-700 transition" aria-label="Twitter">
               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.60a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
               </svg>
             </a>
             <a href="https://facebook.com" target="_blank" rel="noopener" class="hover:text-blue-700 transition" aria-label="Facebook">
@@ -100,53 +90,35 @@ if (!defined('BASE_URL')) {
         <div>
           <h3 class="text-xl font-semibold text-gray-800 mb-4">Tentang Kami</h3>
           <ul class="space-y-3 text-gray-700">
-            <li>
-              <a href="<?php echo $base_url; ?>index.php" class="hover:text-gray-900 transition flex items-center gap-2">
-                <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-                Beranda
-              </a>
+            <li><a href="<?php echo $base_url; ?>index.php" class="hover:text-gray-900 transition flex items-center gap-2">
+              <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg> Beranda</a>
             </li>
-            <li>
-              <a href="<?php echo $base_url; ?>profil.php" class="hover:text-gray-900 transition flex items-center gap-2">
-                <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-                Profil
-              </a>
+            <li><a href="<?php echo $base_url; ?>profil.php" class="hover:text-gray-900 transition flex items-center gap-2">
+              <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg> Profil</a>
             </li>
-            <li>
-              <a href="<?php echo $base_url; ?>visi-misi.php" class="hover:text-gray-900 transition flex items-center gap-2">
-                <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-                Visi &amp; Misi
-              </a>
+            <li><a href="<?php echo $base_url; ?>visi-misi.php" class="hover:text-gray-900 transition flex items-center gap-2">
+              <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg> Visi &amp; Misi</a>
             </li>
-            <li>
-              <a href="<?php echo $base_url; ?>kegiatan.php" class="hover:text-gray-900 transition flex items-center gap-2">
-                <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-                Kegiatan
-              </a>
+            <li><a href="<?php echo $base_url; ?>kegiatan.php" class="hover:text-gray-900 transition flex items-center gap-2">
+              <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg> Kegiatan</a>
             </li>
-            <li>
-              <a href="<?php echo $base_url; ?>galery.php" class="hover:text-gray-900 transition flex items-center gap-2">
-                <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-                Galeri
-              </a>
+            <li><a href="<?php echo $base_url; ?>galery.php" class="hover:text-gray-900 transition flex items-center gap-2">
+              <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg> Galeri</a>
             </li>
-            <li>
-              <a href="<?php echo $base_url; ?>kontak.php" class="hover:text-gray-900 transition flex items-center gap-2">
-                <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-                Kontak
-              </a>
+            <li><a href="<?php echo $base_url; ?>kontak.php" class="hover:text-gray-900 transition flex items-center gap-2">
+              <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg> Kontak</a>
             </li>
           </ul>
         </div>
@@ -178,9 +150,7 @@ if (!defined('BASE_URL')) {
   </button>
 
   <script>
-    // Back to Top functionality
     const backToTopButton = document.getElementById('backToTop');
-    
     window.addEventListener('scroll', () => {
       if (window.pageYOffset > 300) {
         backToTopButton.classList.remove('opacity-0', 'pointer-events-none');
@@ -190,12 +160,8 @@ if (!defined('BASE_URL')) {
         backToTopButton.classList.remove('opacity-100');
       }
     });
-    
     backToTopButton.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>
 </body>

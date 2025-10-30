@@ -216,7 +216,31 @@ require_once __DIR__ . '/includes/config.php';
         gap: 20px;
       }
     }
-  </style>
+  
+/* === Center fixes for Kegiatan (especially mobile) === */
+.activities-section .container{
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+  box-sizing: border-box;
+}
+.activities-section .activity-cards{
+  justify-items: center; /* center grid items horizontally */
+}
+.activities-section .activity-card{
+  width: 100%;
+  max-width: 720px; /* prevent overly-wide single card */
+}
+@media (max-width: 768px){
+  .activities-section { padding-left: 0; padding-right: 0; }
+  .activities-section .activity-cards{ padding-left: 0; padding-right: 0; gap: 16px; }
+  .activities-section .activity-card{ max-width: 600px; }
+}
+/* === /Center fixes === */
+
+</style>
 </head>
 <body>
 

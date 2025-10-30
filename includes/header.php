@@ -1,20 +1,7 @@
 <?php 
 /* Modern header ISR - Fixed with Absolute Paths */
 
-// Deteksi base URL project secara otomatis
-$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
-$host = $_SERVER['HTTP_HOST'];
-$script_name = $_SERVER['SCRIPT_NAME'];
-
-// Ambil folder project dari script name
-// Misal: /company-profil-sch/ekstra/programming.php -> /company-profil-sch/
-$project_folder = '/' . explode('/', trim($script_name, '/'))[0] . '/';
-
-// Base URL lengkap
-$base_url = $protocol . '://' . $host . $project_folder;
-?>
-<?php
-// SAFE BOOTSTRAP: define BASE_URL only (no HTML changed)
+/* SAFE BOOTSTRAP: define BASE_URL only (no HTML changed) */
 if (!defined('BASE_URL')) {
   $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
   $host   = $_SERVER['HTTP_HOST'] ?? 'localhost';
@@ -23,6 +10,8 @@ if (!defined('BASE_URL')) {
   $sub    = ($dir === '' || $dir === '.') ? '/' : $dir . '/';
   define('BASE_URL', rtrim("$scheme://$host$sub", '/') . '/');
 }
+/* PENTING: satukan sumber URL untuk semua link */
+$base_url = BASE_URL;
 ?>
 
 <!doctype html>
@@ -243,29 +232,18 @@ if (!defined('BASE_URL')) {
   
   <!-- Script untuk kontrol dropdown -->
   <script>
-    // Toggle mobile menu
     function toggleMobileMenu() {
       document.getElementById('mnav').classList.toggle('hidden');
     }
-    
-    // Toggle mobile dropdown
     function toggleMobileDropdown(dropdownId) {
       const dropdown = document.getElementById(dropdownId);
-      if (dropdown) {
-        dropdown.classList.toggle('hidden');
-      }
+      if (dropdown) dropdown.classList.toggle('hidden');
     }
-    
-    // Tutup dropdown saat klik di luar
     document.addEventListener('click', function(event) {
       const isDropdownButton = event.target.closest('.dropdown button');
       const isInsideDropdown = event.target.closest('.dropdown-menu');
-      
       if (!isDropdownButton && !isInsideDropdown) {
-        const allDropdowns = document.querySelectorAll('.dropdown-menu');
-        allDropdowns.forEach(dropdown => {
-          dropdown.classList.add('hidden');
-        });
+        document.querySelectorAll('.dropdown-menu').forEach(dd => dd.classList.add('hidden'));
       }
     });
   </script>
